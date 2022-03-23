@@ -3,7 +3,7 @@ package com.utcn.assignment.model;
 import javax.persistence.*;
 
 @Entity
-@Table( name = "votequestion", uniqueConstraints = { @UniqueConstraint( columnNames = { "pid", "aid" } ) } )
+@Table( name = "voteanswer", uniqueConstraints = { @UniqueConstraint( columnNames = { "pid", "aid" } ) } )
 public class Voteanswer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

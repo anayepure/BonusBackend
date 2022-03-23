@@ -1,5 +1,6 @@
 package com.utcn.assignment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 
@@ -19,13 +20,19 @@ public class Author {
     private String username;
     @Column(name="password")
     private String password;
+
+
     @OneToMany(mappedBy="author",cascade = CascadeType.ALL)
     private Set<Question> questions=new HashSet<Question>();
+
+
     @OneToMany(mappedBy="answerAuthor",cascade = CascadeType.ALL)
     private Set<Answer> answers=new HashSet<Answer>();
 
+
     @OneToMany(mappedBy="voteQuestionAuthor",cascade = CascadeType.ALL)
     private Set<Votequestion> votesQuestion=new HashSet<Votequestion>();
+
 
     @OneToMany(mappedBy="voteAnswerAuthor",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Voteanswer> votesAnswer=new HashSet<Voteanswer>();

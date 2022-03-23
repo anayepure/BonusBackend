@@ -1,5 +1,6 @@
 package com.utcn.assignment.service;
 
+import com.utcn.assignment.model.Answer;
 import com.utcn.assignment.model.Author;
 import com.utcn.assignment.model.Question;
 import com.utcn.assignment.repository.iAuthorRepository;
@@ -41,5 +42,32 @@ public class AuthorService {
         Author author=this.getAuthor(pid);
         return author.getQuestions();
     }
+
+    public String deleteAuthor(Integer aid) {
+        try {
+            IAuthorRepository.delete(this.getAuthor(aid));
+
+            return "Delete success.";
+        }catch (Exception e){
+            return "Delete failed.";
+        }
+    }
+
+    public String editAuthor(Integer aid, Author author)
+    {
+        try {
+            Author initialAuthor = this.getAuthor(aid);
+            initialAuthor.setUsername(author.getUsername());
+            IAuthorRepository.save(initialAuthor);
+            return "Edit success.";
+
+        }
+        catch (Exception e){
+            return "Edit failed.";
+        }
+
+    }
+
+
 
 }

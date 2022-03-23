@@ -105,6 +105,21 @@ public class QuestionService {
    }
 
 
+    public String editQuestion(Integer qid, Question question)
+    {
+        try {
+            Question initialQuestion = this.getQuestion(qid);
+            initialQuestion.setQuestionText(question.getQuestionText());
+            IQuestionRepository.save(initialQuestion);
+            return "Edit success.";
+
+        }
+        catch (Exception e){
+            return "Edit failed.";
+        }
+
+    }
+
 
 
 

@@ -84,8 +84,6 @@ public class QuestionController {
     @ResponseBody
     public Question displayQuestion(@RequestParam(name = "qid") Integer qid) {
         Question question= questionService.getQuestion(qid);
-        //Set<Answer> answers=questionService.displayAnswers(qid);
-        //question.setQuestionAnswers(answers);
         return question;
     }
 
@@ -94,6 +92,15 @@ public class QuestionController {
     public Set<Answer> showAnswers(@RequestParam(name = "qid") Integer qid) {
         return questionService.displayAnswers(qid);
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/updateQuestion")
+    @ResponseBody
+    public String editAnswer(@RequestBody Question question, @RequestParam(name = "pid") Integer pid) {
+
+        Question question1=questionService.getQuestion(question.getQid());
+        if (question1.getAuthor().getPid()==pid) return questionService.editQuestion(question.getQid(),question);
+        else return "edit failed";
     }
 
 

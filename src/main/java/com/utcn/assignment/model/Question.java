@@ -153,6 +153,23 @@ public class Question implements Serializable  {
 
     }
 
+    public void setQid(Integer qid) {
+        this.qid = qid;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void setVotesQuestion(Set<Votequestion> votesQuestion) {
+        this.votesQuestion = votesQuestion;
+    }
 }

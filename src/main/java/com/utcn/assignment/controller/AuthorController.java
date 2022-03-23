@@ -1,6 +1,7 @@
 package com.utcn.assignment.controller;
 
 import com.mysql.cj.Session;
+import com.utcn.assignment.model.Answer;
 import com.utcn.assignment.model.Author;
 import com.utcn.assignment.model.Question;
 import com.utcn.assignment.model.Tag;
@@ -65,5 +66,29 @@ public class AuthorController {
     @ResponseBody
     public Set<Question> getAuthorQuestions(@RequestParam(name = "pid") Integer pid) {
         return authorService.getAuthorQuestions(pid);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteAuthor")
+    @ResponseBody
+    public String deleteAuthor(@RequestParam(name = "pid") Integer pid) {
+        Author author=authorService.getAuthor(pid);
+         return authorService.deleteAuthor(pid);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/updateAuthor")
+    @ResponseBody
+    public String editAuthor(@RequestBody Author author) {
+
+        Author author1=authorService.getAuthor(author.getPid());
+        return authorService.editAuthor(author1.getPid(),author);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/displayAuthors")
+    @ResponseBody
+    public List<Author> displayAuthors()
+    {
+        return authorService.getAllAuthors();
     }
 }
