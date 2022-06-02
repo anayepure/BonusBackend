@@ -3,6 +3,7 @@ package com.utcn.assignment.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler", "answers","questions"})
+
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +22,14 @@ public class Author {
     private String username;
     @Column(name="password")
     private String password;
+    @Column(name="score")
+    private Integer score;
+    @Column(name="isadmin")
+    private Integer isadmin;
+    @Column(name="isbanned")
+    private Integer isbanned;
+
+
 
 
     @OneToMany(mappedBy="author",cascade = CascadeType.ALL)
@@ -41,12 +51,41 @@ public class Author {
     public Author(String username, String password) {
         this.username = username;
         this.password = password;
+        this.score=0;
+        this.isadmin=0;
+        this.isbanned=0;
     }
 
 
     public Author() {
 
     }
+
+    public void voteQuestionUp()
+    {
+        this.score+=5;
+    }
+
+    public void voteAnswerUp()
+    {
+        this.score+=10;
+    }
+
+    public void voteQuestionDown()
+    {
+        this.score-=2;
+    }
+
+    public void voteAnswerDown()
+    {
+        this.score-=2;
+    }
+
+    public void voteAnotherAnswerDown()
+    {
+        this.score-=1;
+    }
+
 
     public Integer getPid() {
         return pid;
@@ -77,8 +116,30 @@ public class Author {
     }
 
     public Set<Question> getQuestions() {
-        return questions;
+        return this.questions;
     }
 
+    public Integer getScore() {
+        return score;
+    }
 
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getIsadmin() {
+        return isadmin;
+    }
+
+    public void setIsadmin(Integer isadmin) {
+        this.isadmin = isadmin;
+    }
+
+    public Integer getIsbanned() {
+        return isbanned;
+    }
+
+    public void setIsbanned(Integer isbanned) {
+        this.isbanned = isbanned;
+    }
 }

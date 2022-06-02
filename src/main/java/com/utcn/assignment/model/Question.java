@@ -31,7 +31,7 @@ public class Question implements Serializable  {
     private Author author;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tagquestion",
             joinColumns =
                     { @JoinColumn(name = "qid", referencedColumnName = "qid") },

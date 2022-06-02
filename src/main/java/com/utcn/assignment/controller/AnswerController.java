@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@CrossOrigin(origins="http://localhost:4200")
 public class AnswerController {
     @Autowired
     AnswerService answerService;
@@ -53,7 +54,7 @@ public class AnswerController {
     }
 
     //2.2.2
-    @RequestMapping(method = RequestMethod.GET, value = "/update")
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
     @ResponseBody
     public String editAnswer(@RequestBody Answer answer, @RequestParam(name = "pid") Integer pid) {
 

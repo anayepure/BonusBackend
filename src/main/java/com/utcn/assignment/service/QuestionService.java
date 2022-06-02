@@ -109,6 +109,7 @@ public class QuestionService {
     {
         try {
             Question initialQuestion = this.getQuestion(qid);
+            initialQuestion.setTitle(question.getTitle());
             initialQuestion.setQuestionText(question.getQuestionText());
             IQuestionRepository.save(initialQuestion);
             return "Edit success.";
@@ -120,6 +121,10 @@ public class QuestionService {
 
     }
 
+    public List<Question> getQuestionByAuthor(Integer pid)
+    {
+        return IQuestionRepository.finByPid(pid);
+    }
 
 
 

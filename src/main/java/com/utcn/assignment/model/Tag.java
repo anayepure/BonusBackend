@@ -11,7 +11,7 @@ public class Tag {
     private Integer tid;
     @Column(name="tagtext")
     private String tagtext;
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags",cascade = CascadeType.MERGE)
     private Set<Question> questions;
 
     public Tag(String tagtext) {

@@ -6,14 +6,22 @@ import com.utcn.assignment.service.AuthorService;
 import com.utcn.assignment.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @Controller("tagController")
+@CrossOrigin(origins="http://localhost:4200")
 public class TagController {
     @Autowired
     TagService tagService;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/displayTags")
+    @ResponseBody
+    public List<Tag> displayTags()
+    {
+        return tagService.getAllTags();
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/findTagById")
     @ResponseBody

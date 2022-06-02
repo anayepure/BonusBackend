@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.SortedSet;
 
 @Controller("questionController")
+@CrossOrigin(origins="http://localhost:4200")
 public class QuestionController {
     @Autowired
     QuestionService questionService;
@@ -94,13 +95,20 @@ public class QuestionController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/updateQuestion")
+    @RequestMapping(method = RequestMethod.POST, value = "/updateQuestion")
     @ResponseBody
     public String editAnswer(@RequestBody Question question, @RequestParam(name = "pid") Integer pid) {
 
         Question question1=questionService.getQuestion(question.getQid());
         if (question1.getAuthor().getPid()==pid) return questionService.editQuestion(question.getQid(),question);
         else return "edit failed";
+    }
+
+     @RequestMapping(method = RequestMethod.GET, value = "/findQuestionsByPid")
+    @ResponseBody
+    public List<Question> findQuestionsByAuthor(@RequestParam(name = "pid") Integer pid) {
+        return questionService.getQuestionByAuthor(pid);
+
     }
 
 

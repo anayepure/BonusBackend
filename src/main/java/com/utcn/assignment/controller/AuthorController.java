@@ -1,10 +1,8 @@
 package com.utcn.assignment.controller;
 
-import com.mysql.cj.Session;
 import com.utcn.assignment.model.Answer;
 import com.utcn.assignment.model.Author;
 import com.utcn.assignment.model.Question;
-import com.utcn.assignment.model.Tag;
 import com.utcn.assignment.service.AuthorService;
 import com.utcn.assignment.service.QuestionService;
 import com.utcn.assignment.service.TagService;
@@ -12,17 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Controller
+@CrossOrigin(origins="http://localhost:4200")
 public class AuthorController {
 
     @Autowired
@@ -34,6 +26,7 @@ public class AuthorController {
 
     @Autowired
     TagService tagService;
+
 
     Author author=new Author();
 
@@ -68,6 +61,12 @@ public class AuthorController {
         return authorService.getAuthorQuestions(pid);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getAnswers")
+    @ResponseBody
+    public Set<Answer> getAuthorAnswers(@RequestParam(name = "pid") Integer pid) {
+        return authorService.getAuthorAnswers(pid);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteAuthor")
     @ResponseBody
     public String deleteAuthor(@RequestParam(name = "pid") Integer pid) {
@@ -76,7 +75,7 @@ public class AuthorController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/updateAuthor")
+    @RequestMapping(method = RequestMethod.POST, value = "/updateAuthor")
     @ResponseBody
     public String editAuthor(@RequestBody Author author) {
 
@@ -91,4 +90,20 @@ public class AuthorController {
     {
         return authorService.getAllAuthors();
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/banAuthor")
+    @ResponseBody
+    public String banAuthor(@RequestParam(name = "pid") Integer pid)
+    {
+        return authorService.banAuthor(pid);
+    }
+
+    /*@RequestMapping(method = RequestMethod.GET, value = "/sendAuthor")
+    @ResponseBody
+    public String sendEmail()
+    {
+        return authorService.sendMail();
+    }*/
+
+
 }

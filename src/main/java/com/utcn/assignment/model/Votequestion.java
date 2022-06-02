@@ -1,5 +1,7 @@
 package com.utcn.assignment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,10 +13,12 @@ public class Votequestion {
     private Boolean upvote;
     private Boolean downvote;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "pid")
     private Author voteQuestionAuthor;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "qid")
     private Question voteQuestion;
@@ -50,5 +54,13 @@ public class Votequestion {
 
     public void setVoteQuestion(Question voteQuestion) {
         this.voteQuestion = voteQuestion;
+    }
+
+    public Author getVoteQuestionAuthor() {
+        return voteQuestionAuthor;
+    }
+
+    public Question getVoteQuestion() {
+        return voteQuestion;
     }
 }
